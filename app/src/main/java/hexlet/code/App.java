@@ -5,9 +5,12 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+
 @Command(name = "gendiff", version = "1.0", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
-public class App implements Runnable {
+public class App implements Callable {
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
     private String format = "stylish";
 
@@ -21,7 +24,18 @@ public class App implements Runnable {
     }
 
     @Override
-    public void run() {
-        System.out.println("Hello, world!");
+    public Integer call() {
+        var map1 = new HashMap<String, Object>();
+        var map2 = new HashMap<String, Object>();
+        try {
+            map1 = Differ.getMapFromJSON(filepath1);
+            map2 = Differ.getMapFromJSON(filepath2);
+        } catch (Exception e) {}
+        System.out.println(map1);
+        System.out.println(map2);
+        System.out.println(Differ.generate(map1, map2));
+        return 0;
     }
+
+    
 }
