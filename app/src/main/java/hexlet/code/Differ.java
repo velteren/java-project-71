@@ -3,7 +3,11 @@ package hexlet.code;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.Comparator;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,7 +18,9 @@ public class Differ {
         Path filePath = Paths.get(path).toAbsolutePath().normalize();
         ObjectMapper mapper = new ObjectMapper();
         var map = new HashMap<String, Object>();
-        map = mapper.readValue(new File(filePath.toString()), new TypeReference<HashMap<String, Object>>(){});
+        map = mapper.readValue(new File(filePath.toString()), new TypeReference<HashMap<String, Object>>() {
+
+        });
         return map;
     }
 

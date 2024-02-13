@@ -30,12 +30,12 @@ public class App implements Callable {
         try {
             map1 = Differ.getMapFromJSON(filepath1);
             map2 = Differ.getMapFromJSON(filepath2);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+
+        }
         System.out.println(map1);
         System.out.println(map2);
         System.out.println(Differ.generate(map1, map2));
         return 0;
     }
-
-    
 }
